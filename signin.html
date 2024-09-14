@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://img.freepik.com/premium-vector/hand-drawn-people-working-together-illustration_52683-76157.jpg?t=st=1697101914~exp=1697102514~hmac=aebc8da78209f91b63901676c27f41b147a9940398f9e01c4d3e43a413753700'); /* Replace with your background image URL */
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for form */
+            border-radius: 10px;
+            width: 300px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 80%;
+            padding: 5px;
+            margin-top: 5px;
+            border: 1px solid black #ccc;
+            border-radius: 10px;
+        }
+
+        .login-button {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin: 10px 0;
+        }
+        .signup-link {
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+     <div class="container">
+        <h2>Sign Up</h2>
+        <div class="form-group">
+            <label for="username">New Username</label>
+            <input type="text" id="username" placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+            <button onclick="signup()">Sign Up</button>
+        </div>
+        <div class="login-link">
+            <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+    </div>
+    <script>
+        function signup() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var email = document.getElementById("email").value;
+    
+            fetch('/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password, email }),
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === 'Signup successful') {
+                    window.location.href = "login.html";
+                } else {
+                    alert("Signup failed. Please check your credentials.");
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+    
+</body>
+</html>
